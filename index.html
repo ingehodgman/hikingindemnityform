@@ -4,260 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hike Indemnity &amp; Registration</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --green: #1D9E75; --green-dark: #0F6E56; --green-deeper: #085041;
-  --green-light: #E1F5EE; --green-mid: #5DCAA5;
-  --coral: #D85A30;
-  --text: #1a1a1a; --text-muted: #555; --text-hint: #999;
-  --bg: #f5f3ee; --surface: #ffffff;
-  --border: rgba(0,0,0,0.11); --border-strong: rgba(0,0,0,0.20);
-  --radius: 14px; --radius-sm: 8px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1D9E75;--green-dark:#0F6E56;--green-deep:#085041;
+  --green-light:#E1F5EE;--coral:#D85A30;
+  --text:#1a1a1a;--muted:#555;--hint:#999;
+  --bg:#f5f3ee;--surface:#fff;
+  --border:rgba(0,0,0,0.11);--border-strong:rgba(0,0,0,0.20);
+  --r:14px;--rs:8px;
 }
-body {
-  font-family: 'Source Sans 3', sans-serif;
-  background: var(--bg); color: var(--text);
-  min-height: 100vh; padding: 2rem 1rem 5rem;
-}
-.wrap { max-width: 660px; margin: 0 auto; }
-
-/* ── Header ── */
-.page-header { text-align: center; margin-bottom: 2.5rem; }
-.logo-circle {
-  width: 68px; height: 68px; border-radius: 50%;
-  background: var(--green);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1rem;
-  box-shadow: 0 4px 20px rgba(29,158,117,0.25);
-}
-.logo-circle svg { width: 34px; height: 34px; }
-.page-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 6px;
-}
-.page-header p { font-size: 14px; color: var(--text-muted); }
-
-/* ── Sections ── */
-.section {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem; margin-bottom: 1rem;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px; font-weight: 600; color: var(--text);
-  display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;
-}
-.s-icon {
-  width: 32px; height: 32px; background: var(--green-light);
-  border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.s-icon svg { width: 17px; height: 17px; stroke: var(--green-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.step-badge {
-  margin-left: auto; font-family: 'Source Sans 3', sans-serif;
-  font-size: 11px; font-weight: 600;
-  background: var(--green-light); color: var(--green-deeper);
-  padding: 3px 10px; border-radius: 20px;
-}
-
-/* ── Grid ── */
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.full { grid-column: 1 / -1; }
-@media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
-
-/* ── Fields ── */
-.field { display: flex; flex-direction: column; gap: 5px; }
-.fl {
-  font-size: 11px; font-weight: 600; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.06em;
-}
-.fl .req { color: var(--coral); margin-left: 2px; }
-input:not([type=checkbox]), select, textarea {
-  font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: var(--text);
-  background: #fafaf8; border: 0.5px solid var(--border-strong);
-  border-radius: var(--radius-sm); padding: 10px 12px; width: 100%;
-  transition: border-color 0.15s, box-shadow 0.15s; outline: none; -webkit-appearance: none;
-}
-input:not([type=checkbox]):focus, select:focus, textarea:focus {
-  border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,0.12); background: white;
-}
-textarea { resize: vertical; min-height: 72px; line-height: 1.6; }
-select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
-}
-.err-msg { font-size: 12px; color: var(--coral); display: none; }
-.field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--coral); }
-.field.invalid .err-msg { display: block; }
-
-/* ── Terms ── */
-.terms-box {
-  font-size: 13px; color: var(--text-muted); line-height: 1.8;
-  background: var(--green-light); padding: 1.1rem 1.25rem;
-  border-radius: var(--radius-sm); border-left: 3px solid var(--green);
-  margin-bottom: 1.25rem;
-}
-.terms-box strong { color: var(--green-deeper); }
-
-/* ── Checkboxes ── */
-.checks { display: flex; flex-direction: column; gap: 10px; }
-.check-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
-.check-row input[type=checkbox] {
-  width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
-  cursor: pointer; accent-color: var(--green); padding: 0;
-}
-.check-row span { font-size: 13px; line-height: 1.6; }
-.check-row .req { color: var(--coral); }
-#chkErr { font-size: 12px; color: var(--coral); display: none; margin-top: 6px; }
-
-
-
-/* ── Submit ── */
-.btn-submit {
-  width: 100%; padding: 16px;
-  font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600;
-  background: var(--green); color: white; border: none; border-radius: var(--radius);
-  cursor: pointer; transition: background 0.2s, transform 0.1s;
-  letter-spacing: 0.02em; margin-top: 0.5rem;
-}
-.btn-submit:hover { background: var(--green-dark); }
-.btn-submit:active { transform: scale(0.99); }
-.btn-submit:disabled { background: #bbb; cursor: not-allowed; }
-.spinner {
-  display: inline-block; width: 17px; height: 17px;
-  border: 2px solid rgba(255,255,255,0.35); border-top-color: white;
-  border-radius: 50%; animation: spin 0.7s linear infinite;
-  vertical-align: -4px; margin-right: 8px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-#errBanner {
-  display: none; background: #fdecea; border: 0.5px solid #f5b0aa;
-  border-radius: var(--radius-sm); padding: 12px 16px;
-  font-size: 13px; color: #8b1a1a; margin-top: 12px;
-}
-
-/* ── Success ── */
-#successView {
-  display: none; background: var(--surface);
-  border: 0.5px solid var(--border); border-radius: var(--radius);
-  padding: 3rem 2rem; text-align: center;
-}
-.success-emoji { font-size: 52px; margin-bottom: 1rem; }
-#successView h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--green-deeper); margin-bottom: 0.5rem; }
-#successView p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-.btn-again {
-  margin-top: 1.5rem; padding: 10px 24px;
-  background: var(--green-light); color: var(--green-deeper);
-  border: none; border-radius: var(--radius-sm);
-  font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
-}
-.btn-again:hover { background: #c5e8d8; }
-
-.form-footer { text-align: center; margin-top: 2rem; font-size: 12px; color: var(--text-hint); }
-.form-footer a { color: var(--text-hint); }
-
-/* ── Mobile ── */
-@media (max-width: 600px) {
-  body { padding: 1rem 0.75rem 5rem; }
-  .page-header { margin-bottom: 1.5rem; }
-  .page-header h1 { font-size: 22px; }
-  .logo-circle { width: 56px; height: 56px; }
-  .logo-circle svg { width: 28px; height: 28px; }
-  .section { padding: 1.1rem 1rem; margin-bottom: 0.75rem; }
-  .section-title { font-size: 15px; margin-bottom: 1rem; }
-  .step-badge { font-size: 10px; padding: 2px 8px; }
-  .grid { grid-template-columns: 1fr; gap: 12px; }
-  input:not([type=checkbox]), select, textarea {
-    font-size: 16px; /* prevents iOS zoom on focus */
-    padding: 13px 12px;
-  }
-  .fl { font-size: 12px; }
-  .check-row { gap: 12px; padding: 4px 0; }
-  .check-row input[type=checkbox] { width: 22px; height: 22px; margin-top: 0; flex-shrink: 0; }
-  .check-row span { font-size: 14px; }
-  .terms-box { font-size: 13px; padding: 1rem; }
-  .btn-submit { font-size: 17px; padding: 18px; border-radius: 12px; }
-  .sig-hint { font-size: 13px; }
-  .btn-clear { font-size: 13px; padding: 8px 14px; }
-  #successView { padding: 2rem 1.25rem; }
-}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.hdr{text-align:center;margin-bottom:2rem}
+.logo{width:64px;height:64px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.logo svg{width:32px;height:32px;fill:white}
+.hdr h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;margin-bottom:6px}
+.hdr p{font-size:14px;color:var(--muted)}
+.sec{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem}
+.sec-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.ico{width:32px;height:32px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ico svg{width:17px;height:17px;stroke:var(--green-dark);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.badge{margin-left:auto;font-size:11px;font-weight:600;background:var(--green-light);color:var(--green-deep);padding:3px 10px;border-radius:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+@media(max-width:500px){.grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.lbl .req{color:var(--coral);margin-left:2px}
+input:not([type=checkbox]),select,textarea{font-family:'Source Sans 3',sans-serif;font-size:16px;color:var(--text);background:#fafaf8;border:0.5px solid var(--border-strong);border-radius:var(--rs);padding:11px 12px;width:100%;outline:none;-webkit-appearance:none;transition:border-color .15s,box-shadow .15s}
+input:not([type=checkbox]):focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.12);background:#fff}
+textarea{resize:vertical;min-height:72px;line-height:1.6}
+select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.err{font-size:12px;color:var(--coral);display:none}
+.field.bad input,.field.bad select,.field.bad textarea{border-color:var(--coral)}
+.field.bad .err{display:block}
+.terms{font-size:13px;color:var(--muted);line-height:1.8;background:var(--green-light);padding:1rem 1.25rem;border-radius:var(--rs);border-left:3px solid var(--green);margin-bottom:1.25rem}
+.terms strong{color:var(--green-deep)}
+.checks{display:flex;flex-direction:column;gap:12px}
+.chk{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.chk input[type=checkbox]{width:22px;height:22px;flex-shrink:0;margin-top:1px;cursor:pointer;accent-color:var(--green);padding:0}
+.chk span{font-size:14px;line-height:1.6}
+.cherr{font-size:12px;color:var(--coral);display:none;margin-top:4px}
+.agree-box{margin-top:1.25rem;background:#085041;border-radius:var(--rs);padding:1rem 1.25rem}
+.agree-box .chk span{color:#fff;font-weight:600}
+.agree-box .chk input[type=checkbox]{accent-color:#5DCAA5}
+.btn-sub{width:100%;padding:16px;font-family:'Source Sans 3',sans-serif;font-size:16px;font-weight:600;background:var(--green);color:#fff;border:none;border-radius:var(--r);cursor:pointer;letter-spacing:.02em;margin-top:.5rem;transition:background .2s}
+.btn-sub:hover{background:var(--green-dark)}
+.btn-sub:disabled{background:#bbb;cursor:not-allowed}
+.errbanner{display:none;background:#fdecea;border:0.5px solid #f5b0aa;border-radius:var(--rs);padding:12px 16px;font-size:13px;color:#8b1a1a;margin-top:12px}
+.success{display:none;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:3rem 1.5rem;text-align:center}
+.success h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--green-deep);margin-bottom:.5rem}
+.success p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.wa-btn{display:block;background:#25D366;color:#fff;text-decoration:none;padding:18px 24px;border-radius:var(--r);font-size:17px;font-weight:700;text-align:center;margin-bottom:1rem}
+.btn-again{padding:10px 24px;background:var(--green-light);color:var(--green-deep);border:none;border-radius:var(--rs);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.footer{text-align:center;margin-top:2rem;font-size:12px;color:var(--hint)}
+@media(max-width:600px){body{padding:1rem .75rem 5rem}.hdr h1{font-size:22px}.sec{padding:1.1rem 1rem}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="page-header">
-    <div class="logo-circle">
-      <!-- Mountain icon -->
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 20L9 7l4 6 3-4 6 11H2z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
-        <circle cx="17" cy="5" r="2" fill="rgba(255,255,255,0.6)"/>
-      </svg>
+  <div class="hdr">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M2 20L9 7l4 6 3-4 6 11H2z"/></svg>
     </div>
     <h1>Hike Indemnity &amp; Registration</h1>
     <p>Complete all sections before participating in a hike event</p>
   </div>
 
-  <!-- ═══════════════════════════════════ FORM VIEW ═══════════════════════════════════ -->
   <div id="formView">
 
-    <!-- STEP 1 — Participant -->
-    <div class="section">
-      <div class="section-title">
-        <div class="s-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+    <div class="sec">
+      <div class="sec-title">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
         Participant details
-        <span class="step-badge">Step 1 of 4</span>
+        <span class="badge">Step 1 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-firstname">
-          <label class="fl" for="firstname">First name <span class="req">*</span></label>
-          <input type="text" id="firstname" name="firstname" placeholder="e.g. Sarah" autocomplete="given-name">
-          <span class="err-msg">Required</span>
+          <label class="lbl" for="firstname">First name <span class="req">*</span></label>
+          <input type="text" id="firstname" placeholder="e.g. Sarah" autocomplete="given-name">
+          <span class="err">Required</span>
         </div>
         <div class="field" id="f-lastname">
-          <label class="fl" for="lastname">Last name <span class="req">*</span></label>
-          <input type="text" id="lastname" name="lastname" placeholder="e.g. Johnson" autocomplete="family-name">
-          <span class="err-msg">Required</span>
+          <label class="lbl" for="lastname">Last name <span class="req">*</span></label>
+          <input type="text" id="lastname" placeholder="e.g. Johnson" autocomplete="family-name">
+          <span class="err">Required</span>
         </div>
         <div class="field" id="f-email">
-          <label class="fl" for="email">Email address <span class="req">*</span></label>
-          <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email">
-          <span class="err-msg">Enter a valid email</span>
+          <label class="lbl" for="email">Email address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+          <span class="err">Enter a valid email</span>
         </div>
         <div class="field" id="f-phone">
-          <label class="fl" for="phone">Cell number <span class="req">*</span></label>
-          <input type="tel" id="phone" name="phone" placeholder="e.g. 082 555 0100" autocomplete="tel">
-          <span class="err-msg">Required</span>
+          <label class="lbl" for="phone">Cell number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="e.g. 082 555 0100" autocomplete="tel">
+          <span class="err">Required</span>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2 — Emergency Contact -->
-    <div class="section">
-      <div class="section-title">
-        <div class="s-icon">
-          <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.8 19.8 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2z"/></svg>
-        </div>
+    <div class="sec">
+      <div class="sec-title">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.8 19.8 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14.9v2z"/></svg></div>
         Emergency contact
-        <span class="step-badge">Step 2 of 4</span>
+        <span class="badge">Step 2 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-ecname">
-          <label class="fl" for="ecname">Full name <span class="req">*</span></label>
-          <input type="text" id="ecname" name="emergency_name" placeholder="Contact name">
-          <span class="err-msg">Required</span>
+          <label class="lbl" for="ecname">Full name <span class="req">*</span></label>
+          <input type="text" id="ecname" placeholder="Contact name">
+          <span class="err">Required</span>
         </div>
         <div class="field" id="f-ecrelation">
-          <label class="fl" for="ecrelation">Relationship <span class="req">*</span></label>
-          <select id="ecrelation" name="emergency_relationship">
-            <option value="">Select…</option>
+          <label class="lbl" for="ecrelation">Relationship <span class="req">*</span></label>
+          <select id="ecrelation">
+            <option value="">Select...</option>
             <option>Spouse / partner</option>
             <option>Parent</option>
             <option>Sibling</option>
@@ -265,152 +129,133 @@ select {
             <option>Friend</option>
             <option>Other family</option>
           </select>
-          <span class="err-msg">Required</span>
+          <span class="err">Required</span>
         </div>
         <div class="field" id="f-ecphone">
-          <label class="fl" for="ecphone">Contact number <span class="req">*</span></label>
-          <input type="tel" id="ecphone" name="emergency_phone" placeholder="e.g. 083 555 0200">
-          <span class="err-msg">Required</span>
+          <label class="lbl" for="ecphone">Contact number <span class="req">*</span></label>
+          <input type="tel" id="ecphone" placeholder="e.g. 083 555 0200">
+          <span class="err">Required</span>
         </div>
         <div class="field">
-          <label class="fl" for="ecphone2">Alternate number</label>
-          <input type="tel" id="ecphone2" name="emergency_phone_alt" placeholder="Optional">
+          <label class="lbl" for="ecphone2">Alternate number</label>
+          <input type="tel" id="ecphone2" placeholder="Optional">
         </div>
       </div>
     </div>
 
-    <!-- STEP 3 — Health & Fitness -->
-    <div class="section">
-      <div class="section-title">
-        <div class="s-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
+    <div class="sec">
+      <div class="sec-title">
+        <div class="ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         Health &amp; fitness
-        <span class="step-badge">Step 3 of 4</span>
+        <span class="badge">Step 3 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-fitness">
-          <label class="fl" for="fitness">Fitness level <span class="req">*</span></label>
-          <select id="fitness" name="fitness_level">
-            <option value="">Select…</option>
-            <option>Beginner – light walks only</option>
-            <option>Moderate – regular walker</option>
-            <option>Fit – hike regularly</option>
-            <option>Very fit – trail running / mountaineering</option>
+          <label class="lbl" for="fitness">Fitness level <span class="req">*</span></label>
+          <select id="fitness">
+            <option value="">Select...</option>
+            <option>Beginner - light walks only</option>
+            <option>Moderate - regular walker</option>
+            <option>Fit - hike regularly</option>
+            <option>Very fit - trail running / mountaineering</option>
           </select>
-          <span class="err-msg">Required</span>
+          <span class="err">Required</span>
         </div>
         <div class="field">
-          <label class="fl" for="medical">Medical aid / scheme</label>
-          <input type="text" id="medical" name="medical_aid" placeholder="e.g. Discovery, Momentum">
+          <label class="lbl" for="medical">Medical aid / scheme</label>
+          <input type="text" id="medical" placeholder="e.g. Discovery, Momentum">
         </div>
         <div class="field full" id="f-conditions">
-          <label class="fl" for="conditions">Medical conditions / allergies <span class="req">*</span></label>
-          <textarea id="conditions" name="medical_conditions" placeholder="List any conditions, allergies, or medications relevant to physical activity. Write 'None' if not applicable."></textarea>
-          <span class="err-msg">Required — write "None" if not applicable</span>
+          <label class="lbl" for="conditions">Medical conditions / allergies <span class="req">*</span></label>
+          <textarea id="conditions" placeholder="List any conditions, allergies or medications. Write 'None' if not applicable."></textarea>
+          <span class="err">Required - write "None" if not applicable</span>
         </div>
-      </div><!-- /grid -->
-    </div><!-- /section health -->
-
-    <div class="section">
-      <div class="section-title">
-        <div class="s-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        Indemnity declaration
-        <span class="step-badge">Step 4 of 4</span>
       </div>
-      <div class="terms-box">
-        <strong>Read this before you tick and sign:</strong><br><br>
-        Hiking involves real risks — rough terrain, weather, wildlife, physical injury, and in extreme cases, death. By joining any hike organised by this group, you accept these risks as your own.<br><br>
-        You agree that the <strong>organisers, hike leaders, and group members are not liable</strong> for any injury, loss, or death arising from your participation. You will follow the leader's instructions at all times. The leader may turn you back for any safety reason.<br><br>
-        If emergency medical treatment is needed, you consent to it being given and accept the costs. This indemnity covers all hikes you attend this calendar year.
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        Indemnity declaration
+        <span class="badge">Step 4 of 4</span>
+      </div>
+      <div class="terms">
+        <strong>Read this before you tick:</strong><br><br>
+        Hiking involves real risks - rough terrain, weather, wildlife, physical injury, and in extreme cases, death. By joining any hike organised by this group, you accept these risks as your own.<br><br>
+        You agree that the <strong>organisers, hike leaders, and group members are not liable</strong> for any injury, loss, or death arising from your participation. You will follow the leader's instructions at all times.<br><br>
+        If emergency medical treatment is needed, you consent to it and accept the costs. This indemnity covers all hikes you attend this calendar year.
       </div>
       <div class="grid" style="margin-bottom:1.25rem">
         <div class="field full">
-          <label class="fl" for="hikename">Hike / event name</label>
-          <input type="text" id="hikename" name="hike_name" placeholder="e.g. Magaliesberg day hike">
+          <label class="lbl" for="hikename">Hike / event name</label>
+          <input type="text" id="hikename" placeholder="e.g. Magaliesberg day hike">
         </div>
       </div>
       <div class="checks">
-        <label class="check-row">
+        <label class="chk">
           <input type="checkbox" id="chk1">
           <span><strong>I understand the risks</strong> and join all hikes voluntarily at my own risk <span class="req">*</span></span>
         </label>
-        <label class="check-row">
+        <label class="chk">
           <input type="checkbox" id="chk2">
-          <span><strong>I release the organisers and leaders from liability</strong> for any injury, loss, or death during hikes <span class="req">*</span></span>
+          <span><strong>I release the organisers and leaders from liability</strong> for any injury, loss, or death <span class="req">*</span></span>
         </label>
-        <label class="check-row">
+        <label class="chk">
           <input type="checkbox" id="chk3">
           <span><strong>I will follow the hike leader's instructions</strong> and take responsibility for my own safety <span class="req">*</span></span>
         </label>
-        <label class="check-row">
+        <label class="chk">
           <input type="checkbox" id="chk4">
-          <span>I consent to photos / videos from hikes being shared on the group's social media</span>
+          <span>I consent to photos / videos being shared on the group's social media</span>
         </label>
       </div>
-      <p id="chkErr">Please accept all required declarations above</p>
-
-      <div style="margin-top:1.25rem;background:#085041;border-radius:var(--radius-sm);padding:1rem 1.25rem;">
-        <label class="check-row" style="align-items:center;">
-          <input type="checkbox" id="chk5" style="width:22px;height:22px;flex-shrink:0;accent-color:#5DCAA5;cursor:pointer;">
-          <span style="font-size:14px;font-weight:600;color:white;line-height:1.5;">By ticking this box I confirm I have read, understood, and agree to the indemnity above. I accept this as my binding agreement. <span style="color:#5DCAA5;">*</span></span>
+      <p class="cherr" id="chkErr">Please accept all required declarations above</p>
+      <div class="agree-box">
+        <label class="chk">
+          <input type="checkbox" id="chk5">
+          <span>By ticking this box I confirm I have read, understood, and agree to the indemnity above. I accept this as my binding agreement. <span style="color:#5DCAA5">*</span></span>
         </label>
       </div>
-      <p id="chk5Err" style="font-size:12px;color:var(--coral);display:none;margin-top:6px;">You must confirm your agreement to submit</p>
+      <p class="cherr" id="chk5Err">You must confirm your agreement to submit</p>
     </div>
 
-    <button class="btn-submit" id="submitBtn" type="button" onclick="submitForm()">
-      Submit indemnity form →
-    </button>
-    <div id="errBanner">Something went wrong. Please try again or contact the organiser.</div>
+    <button class="btn-sub" id="submitBtn" onclick="submitForm()">Submit indemnity form</button>
+    <div class="errbanner" id="errBanner">Something went wrong. Please try again.</div>
 
-  </div><!-- /formView -->
+  </div>
 
-  <!-- SUCCESS VIEW -->
-  <div id="successView">
-    <div class="success-emoji">&#x26F0;</div>
+  <div class="success" id="successView">
+    <div style="font-size:52px;margin-bottom:1rem">&#x26F0;</div>
     <h2>Almost done!</h2>
-    <p id="successName" style="font-weight:600;color:var(--green-dark);font-size:16px;margin-bottom:8px"></p>
-    <p style="margin-bottom:1.5rem;font-size:14px;color:var(--text-muted)">Your form is ready. Tap the button below to open WhatsApp, then press <strong>Send</strong> to complete your submission.</p>
-    <a id="waBtn" href="#" target="_blank" rel="noopener"
-       style="display:block;background:#25D366;color:white;text-decoration:none;
-              padding:18px 24px;border-radius:14px;font-size:17px;font-weight:700;
-              text-align:center;margin-bottom:1rem;">
-      &#128172; Send via WhatsApp
-    </a>
+    <p id="successName" style="font-weight:600;color:#0F6E56;font-size:16px;margin-bottom:8px"></p>
+    <p>Tap the button below to open WhatsApp, then press <strong>Send</strong> to complete your submission.</p>
+    <a id="waBtn" href="#" class="wa-btn">Send via WhatsApp</a>
     <button class="btn-again" onclick="resetForm()">Submit another participant</button>
   </div>
 
-  <div class="form-footer">
-    Going Places Hiking · Submissions via WhatsApp
-  </div>
+  <div class="footer">Going Places Hiking &middot; Submissions via WhatsApp</div>
 
-</div><!-- /wrap -->
-
+</div>
 <script>
-// ── YOUR WHATSAPP NUMBER ──────────────────────────────────────────
-// International format, no spaces or + sign
-// e.g. South African number 082 555 0100 becomes 27825550100
-const WHATSAPP_NUMBER = 'YOUR_NUMBER_HERE'; // e.g. '27821234567'
+var WA = '27794423830';
 
-// ── Validation ────────────────────────────────────────────────────
+// Paste your Google Apps Script Web App URL here after deploying
+var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbz4EBwbDvQMl96u3CEqGPolvpFmyvqbI7Ch09WcCkqs1MCBBZPDWRy9calJNLlxVegy/exec';
+
 function validate(id, check) {
-  const el = document.getElementById(id);
-  const wrap = document.getElementById('f-' + id);
-  const val = el ? el.value.trim() : '';
-  const ok = check ? check(val) : val.length > 0;
-  if (wrap) wrap.classList.toggle('invalid', !ok);
+  var el = document.getElementById(id);
+  var wrap = document.getElementById('f-' + id);
+  var val = el ? el.value.trim() : '';
+  var ok = check ? check(val) : val.length > 0;
+  if (wrap) wrap.classList.toggle('bad', !ok);
   return ok;
 }
 
-// ── Submit ────────────────────────────────────────────────────────
 function submitForm() {
-  let ok = true;
+  var ok = true;
   ok = validate('firstname') && ok;
   ok = validate('lastname') && ok;
-  ok = validate('email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) && ok;
+  ok = validate('email', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }) && ok;
   ok = validate('phone') && ok;
   ok = validate('ecname') && ok;
   ok = validate('ecrelation') && ok;
@@ -418,84 +263,95 @@ function submitForm() {
   ok = validate('fitness') && ok;
   ok = validate('conditions') && ok;
 
-  const chksOk = document.getElementById('chk1').checked &&
-                 document.getElementById('chk2').checked &&
-                 document.getElementById('chk3').checked;
+  var chksOk = document.getElementById('chk1').checked &&
+               document.getElementById('chk2').checked &&
+               document.getElementById('chk3').checked;
   document.getElementById('chkErr').style.display = chksOk ? 'none' : 'block';
   if (!chksOk) ok = false;
 
-  const finalOk = document.getElementById('chk5').checked;
+  var finalOk = document.getElementById('chk5').checked;
   document.getElementById('chk5Err').style.display = finalOk ? 'none' : 'block';
   if (!finalOk) ok = false;
 
   if (!ok) {
-    const first = document.querySelector('.invalid, [style*="block"]');
+    var first = document.querySelector('.bad');
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
-  const fn    = document.getElementById('firstname').value.trim();
-  const ln    = document.getElementById('lastname').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const ecname= document.getElementById('ecname').value.trim();
-  const ecrel = document.getElementById('ecrelation').value;
-  const ecph  = document.getElementById('ecphone').value.trim();
-  const ecph2 = document.getElementById('ecphone2').value.trim();
-  const fit   = document.getElementById('fitness').value;
-  const aid   = document.getElementById('medical').value.trim();
-  const cond  = document.getElementById('conditions').value.trim();
-  const hike  = document.getElementById('hikename') ? document.getElementById('hikename').value.trim() : '';
-  const photo = document.getElementById('chk4').checked ? 'Yes' : 'No';
-  const date  = new Date().toLocaleDateString('en-ZA');
+  var fn   = document.getElementById('firstname').value.trim();
+  var ln   = document.getElementById('lastname').value.trim();
+  var em   = document.getElementById('email').value.trim();
+  var ph   = document.getElementById('phone').value.trim();
+  var ecn  = document.getElementById('ecname').value.trim();
+  var ecr  = document.getElementById('ecrelation').value;
+  var ecp  = document.getElementById('ecphone').value.trim();
+  var ecp2 = document.getElementById('ecphone2').value.trim();
+  var fit  = document.getElementById('fitness').value;
+  var aid  = document.getElementById('medical').value.trim();
+  var cond = document.getElementById('conditions').value.trim();
+  var hike = document.getElementById('hikename').value.trim();
+  var photo= document.getElementById('chk4').checked ? 'Yes' : 'No';
+  var date = new Date().toLocaleDateString('en-ZA');
 
-  const altPhone = ecph2 ? '*Alt:* ' + ecph2 + '\n' : '';
-  const msg = [
-    '*HIKE INDEMNITY SUBMISSION*',
-    '',
+  var lines = [
+    '*HIKE INDEMNITY SUBMISSION*', '',
     '*PARTICIPANT*',
     '*Name:* ' + fn + ' ' + ln,
-    '*Email:* ' + email,
-    '*Cell:* ' + phone,
-    '',
+    '*Email:* ' + em,
+    '*Cell:* ' + ph, '',
     '*EMERGENCY CONTACT*',
-    '*Name:* ' + ecname + ' (' + ecrel + ')',
-    '*Cell:* ' + ecph,
-    altPhone,
-    '*HEALTH & FITNESS*',
-    '*Fitness:* ' + fit,
-    '*Medical aid:* ' + (aid || 'None'),
-    '*Conditions:* ' + cond,
-    '',
-    '*DETAILS*',
-    '*Hike:* ' + (hike || 'Not specified'),
-    '*Photo consent:* ' + photo,
-    '*Date:* ' + date,
-    '',
-    'Agreed to indemnity: YES'
-  ].join('\n');
+    '*Name:* ' + ecn + ' (' + ecr + ')',
+    '*Cell:* ' + ecp
+  ];
+  if (ecp2) lines.push('*Alt:* ' + ecp2);
+  lines.push('');
+  lines.push('*HEALTH & FITNESS*');
+  lines.push('*Fitness:* ' + fit);
+  lines.push('*Medical aid:* ' + (aid || 'None'));
+  lines.push('*Conditions:* ' + cond);
+  lines.push('');
+  lines.push('*DETAILS*');
+  lines.push('*Hike:* ' + (hike || 'Not specified'));
+  lines.push('*Photo consent:* ' + photo);
+  lines.push('*Date:* ' + date);
+  lines.push('');
+  lines.push('Agreed to indemnity: YES');
 
-  const url = 'https://api.whatsapp.com/send?phone=' + WHATSAPP_NUMBER + '&text=' + encodeURIComponent(msg);
+  var msg = lines.join('\n');
+  var url = 'https://api.whatsapp.com/send?phone=' + WA + '&text=' + encodeURIComponent(msg);
 
+  // Log to Google Sheet (fire and forget)
+  if (WEBHOOK_URL !== 'YOUR_APPS_SCRIPT_URL') {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstname: fn, lastname: ln, email: em, phone: ph,
+        ecname: ecn, ecrelation: ecr, ecphone: ecp, ecphone2: ecp2,
+        fitness: fit, medical: aid, conditions: cond,
+        hike: hike, photo: photo, date: date
+      })
+    }).catch(function(){});
+  }
+
+  document.getElementById('waBtn').href = url;
   document.getElementById('formView').style.display = 'none';
   document.getElementById('successView').style.display = 'block';
   document.getElementById('successName').textContent = fn + ' ' + ln;
-  document.getElementById('waBtn').href = url;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Reset ─────────────────────────────────────────────────────────
 function resetForm() {
   document.getElementById('formView').style.display = 'block';
   document.getElementById('successView').style.display = 'none';
-  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea')
-    .forEach(el => el.value = '');
-  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
-  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(function(el){ el.value=''; });
+  document.querySelectorAll('select').forEach(function(el){ el.selectedIndex=0; });
+  document.querySelectorAll('input[type=checkbox]').forEach(function(el){ el.checked=false; });
+  document.querySelectorAll('.bad').forEach(function(el){ el.classList.remove('bad'); });
+  document.getElementById('chkErr').style.display = 'none';
   document.getElementById('chk5Err').style.display = 'none';
-  document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-  document.getElementById('submitBtn').disabled = false;
-  document.getElementById('submitBtn').innerHTML = 'Submit indemnity form →';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
