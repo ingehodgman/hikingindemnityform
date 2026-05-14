@@ -442,7 +442,14 @@ function resizeCanvas() {
   }
 }
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+// Only resize on width changes (not keyboard pop-up which only changes height)
+let lastWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+  if (window.innerWidth !== lastWidth) {
+    lastWidth = window.innerWidth;
+    resizeCanvas();
+  }
+});
 
 function getPos(e) {
   const r = canvas.getBoundingClientRect();
