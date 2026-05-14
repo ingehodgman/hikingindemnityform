@@ -215,12 +215,6 @@ select {
           <input type="text" id="lastname" name="lastname" placeholder="e.g. Johnson" autocomplete="family-name">
           <span class="err-msg">Required</span>
         </div>
-        <div class="field" id="f-dob">
-          <label class="fl" for="dob">Date of birth <span class="req">*</span></label>
-          <input type="date" id="dob" name="dob">
-          <span class="err-msg">Required</span>
-        </div>
-
         <div class="field" id="f-email">
           <label class="fl" for="email">Email address <span class="req">*</span></label>
           <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email">
@@ -305,12 +299,6 @@ select {
           <span class="err-msg">Required — write "None" if not applicable</span>
         </div>
         <div class="field full">
-          <label class="fl" for="dietary">Dietary requirements</label>
-          <input type="text" id="dietary" name="dietary" placeholder="e.g. vegetarian, nut allergy — or leave blank">
-        </div>
-      </div>
-    </div>
-
     <!-- STEP 4 — Indemnity -->
     <div class="section">
       <div class="section-title">
@@ -321,29 +309,27 @@ select {
         <span class="step-badge">Step 4 of 5</span>
       </div>
       <div class="terms-box">
-        <strong>Please read carefully before signing:</strong><br><br>
-        I, the undersigned, acknowledge that hiking and outdoor activities involve inherent risks including but not limited to: rough terrain, extreme weather, wildlife encounters, physical exhaustion, and personal injury or death.<br><br>
-        I voluntarily participate in activities organised by this group and <strong>indemnify and hold harmless the organisers, leaders, and members</strong> from any liability, loss, damage, injury, or death arising from my participation, howsoever caused, except in cases of gross negligence.<br><br>
-        I confirm that I am in good health and physically capable of participating. I accept full responsibility for my own safety and agree to follow the instructions of the hike leader at all times. I understand the leader may turn any participant back for safety reasons without liability.<br><br>
-        I consent to first aid treatment and emergency medical care being administered if required, and accept all associated costs.<br><br>
-        <strong>This indemnity is valid for all hikes attended during the current calendar year.</strong>
+        <strong>Read this before you tick and sign:</strong><br><br>
+        Hiking involves real risks — rough terrain, weather, wildlife, physical injury, and in extreme cases, death. By joining any hike organised by this group, you accept these risks as your own.<br><br>
+        You agree that the <strong>organisers, hike leaders, and group members are not liable</strong> for any injury, loss, or death arising from your participation. You will follow the leader's instructions at all times. The leader may turn you back for any safety reason.<br><br>
+        If emergency medical treatment is needed, you consent to it being given and accept the costs. This indemnity covers all hikes you attend this calendar year.
       </div>
       <div class="checks">
         <label class="check-row">
           <input type="checkbox" id="chk1">
-          <span>I have read and understood the indemnity above and <strong>agree to its terms</strong> <span class="req">*</span></span>
+          <span><strong>I understand the risks</strong> and join all hikes voluntarily at my own risk <span class="req">*</span></span>
         </label>
         <label class="check-row">
           <input type="checkbox" id="chk2">
-          <span>I confirm that all information provided in this form is accurate and complete <span class="req">*</span></span>
+          <span><strong>I release the organisers and leaders from liability</strong> for any injury, loss, or death during hikes <span class="req">*</span></span>
         </label>
         <label class="check-row">
           <input type="checkbox" id="chk3">
-          <span>I agree to conduct myself responsibly, respect the environment, and follow Leave No Trace principles <span class="req">*</span></span>
+          <span><strong>I will follow the hike leader's instructions</strong> and take responsibility for my own safety <span class="req">*</span></span>
         </label>
         <label class="check-row">
           <input type="checkbox" id="chk4">
-          <span>I consent to photographs / videos taken on hikes being shared in the group's social media</span>
+          <span>I consent to photos / videos from hikes being shared on the group's social media</span>
         </label>
       </div>
       <p id="chkErr">Please accept all required declarations above</p>
@@ -478,7 +464,6 @@ async function submitForm() {
   let ok = true;
   ok = validate('firstname') && ok;
   ok = validate('lastname') && ok;
-  ok = validate('dob') && ok;
   ok = validate('email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) && ok;
   ok = validate('phone') && ok;
   ok = validate('ecname') && ok;
@@ -508,7 +493,6 @@ async function submitForm() {
   const payload = {
     firstname:              document.getElementById('firstname').value.trim(),
     lastname:               document.getElementById('lastname').value.trim(),
-    dob:                    document.getElementById('dob').value,
     email:                  document.getElementById('email').value.trim(),
     phone:                  document.getElementById('phone').value.trim(),
     emergency_name:         document.getElementById('ecname').value.trim(),
@@ -518,7 +502,6 @@ async function submitForm() {
     fitness_level:          document.getElementById('fitness').value,
     medical_aid:            document.getElementById('medical').value.trim(),
     medical_conditions:     document.getElementById('conditions').value.trim(),
-    dietary:                document.getElementById('dietary').value.trim(),
     hike_name:              document.getElementById('hikename').value.trim(),
     signed_date:            document.getElementById('sigdate').value,
     signature_image:        sigData,
