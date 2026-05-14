@@ -115,22 +115,7 @@ select {
 .check-row .req { color: var(--coral); }
 #chkErr { font-size: 12px; color: var(--coral); display: none; margin-top: 6px; }
 
-/* ── Signature ── */
-#sigCanvas {
-  border: 1.5px dashed var(--border-strong); border-radius: var(--radius-sm);
-  background: white; cursor: crosshair; display: block;
-  touch-action: none; width: 100%; height: 160px;
-}
-#sigCanvas.signed { border-style: solid; border-color: var(--green); }
-.sig-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-.sig-hint { font-size: 12px; color: var(--text-hint); flex: 1; }
-.btn-clear {
-  font-family: inherit; font-size: 12px; padding: 5px 12px;
-  border: 0.5px solid var(--border-strong); border-radius: var(--radius-sm);
-  background: white; color: var(--text-muted); cursor: pointer;
-}
-.btn-clear:hover { background: #f0f0ec; }
-#sigErr { font-size: 12px; color: var(--coral); display: none; margin-top: 6px; }
+
 
 /* ── Submit ── */
 .btn-submit {
@@ -196,7 +181,6 @@ select {
   .check-row input[type=checkbox] { width: 22px; height: 22px; margin-top: 0; flex-shrink: 0; }
   .check-row span { font-size: 14px; }
   .terms-box { font-size: 13px; padding: 1rem; }
-  #sigCanvas { height: 180px; }
   .btn-submit { font-size: 17px; padding: 18px; border-radius: 12px; }
   .sig-hint { font-size: 13px; }
   .btn-clear { font-size: 13px; padding: 8px 14px; }
@@ -229,7 +213,7 @@ select {
           <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </div>
         Participant details
-        <span class="step-badge">Step 1 of 5</span>
+        <span class="step-badge">Step 1 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-firstname">
@@ -262,7 +246,7 @@ select {
           <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.8 19.8 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2z"/></svg>
         </div>
         Emergency contact
-        <span class="step-badge">Step 2 of 5</span>
+        <span class="step-badge">Step 2 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-ecname">
@@ -302,7 +286,7 @@ select {
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         Health &amp; fitness
-        <span class="step-badge">Step 3 of 5</span>
+        <span class="step-badge">Step 3 of 4</span>
       </div>
       <div class="grid">
         <div class="field" id="f-fitness">
@@ -333,13 +317,19 @@ select {
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         Indemnity declaration
-        <span class="step-badge">Step 4 of 5</span>
+        <span class="step-badge">Step 4 of 4</span>
       </div>
       <div class="terms-box">
         <strong>Read this before you tick and sign:</strong><br><br>
         Hiking involves real risks — rough terrain, weather, wildlife, physical injury, and in extreme cases, death. By joining any hike organised by this group, you accept these risks as your own.<br><br>
         You agree that the <strong>organisers, hike leaders, and group members are not liable</strong> for any injury, loss, or death arising from your participation. You will follow the leader's instructions at all times. The leader may turn you back for any safety reason.<br><br>
         If emergency medical treatment is needed, you consent to it being given and accept the costs. This indemnity covers all hikes you attend this calendar year.
+      </div>
+      <div class="grid" style="margin-bottom:1.25rem">
+        <div class="field full">
+          <label class="fl" for="hikename">Hike / event name</label>
+          <input type="text" id="hikename" name="hike_name" placeholder="e.g. Magaliesberg day hike">
+        </div>
       </div>
       <div class="checks">
         <label class="check-row">
@@ -360,36 +350,15 @@ select {
         </label>
       </div>
       <p id="chkErr">Please accept all required declarations above</p>
+
+      <div style="margin-top:1.25rem;background:#085041;border-radius:var(--radius-sm);padding:1rem 1.25rem;">
+        <label class="check-row" style="align-items:center;">
+          <input type="checkbox" id="chk5" style="width:22px;height:22px;flex-shrink:0;accent-color:#5DCAA5;cursor:pointer;">
+          <span style="font-size:14px;font-weight:600;color:white;line-height:1.5;">By ticking this box I confirm I have read, understood, and agree to the indemnity above. I accept this as my binding agreement. <span style="color:#5DCAA5;">*</span></span>
+        </label>
+      </div>
+      <p id="chk5Err" style="font-size:12px;color:var(--coral);display:none;margin-top:6px;">You must confirm your agreement to submit</p>
     </div>
-
-    <!-- STEP 5 — Signature -->
-    <div class="section">
-      <div class="section-title">
-        <div class="s-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 014 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-        </div>
-        Signature
-        <span class="step-badge">Step 5 of 5</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">Sign in the box below using your mouse, finger, or stylus</p>
-      <canvas id="sigCanvas"></canvas>
-      <div class="sig-row">
-        <span class="sig-hint" id="sigHint">Draw your signature above</span>
-        <button class="btn-clear" type="button" onclick="clearSig()">✕ Clear</button>
-      </div>
-      <p id="sigErr">Signature is required</p>
-
-      <div class="grid" style="margin-top:1.25rem">
-        <div class="field" id="f-sigdate">
-          <label class="fl" for="sigdate">Date <span class="req">*</span></label>
-          <input type="date" id="sigdate" name="signed_date">
-          <span class="err-msg">Required</span>
-        </div>
-        <div class="field">
-          <label class="fl" for="hikename">Hike / event name</label>
-          <input type="text" id="hikename" name="hike_name" placeholder="e.g. Magaliesberg day hike">
-        </div>
-      </div>
     </div>
 
     <button class="btn-submit" id="submitBtn" type="button" onclick="submitForm()">
@@ -421,75 +390,7 @@ select {
 // It will look like: https://formspree.io/f/xabcdefg
 const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
 
-// ── Signature canvas ────────────────────────────────────────────────────────
-const canvas = document.getElementById('sigCanvas');
-const ctx = canvas.getContext('2d');
-let drawing = false, hasSig = false, lx = 0, ly = 0;
-
-function resizeCanvas() {
-  const w = canvas.parentElement.offsetWidth;
-  if (w > 0 && w !== canvas.width) {
-    const snapshot = hasSig ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
-    const prevW = canvas.width, prevH = canvas.height;
-    canvas.width = w;
-    canvas.height = 160;
-    if (snapshot) {
-      const tmp = document.createElement('canvas');
-      tmp.width = prevW; tmp.height = prevH;
-      tmp.getContext('2d').putImageData(snapshot, 0, 0);
-      ctx.drawImage(tmp, 0, 0, prevW, prevH, 0, 0, w, 160);
-    }
-  }
-}
-resizeCanvas();
-// Only resize on width changes (not keyboard pop-up which only changes height)
-let lastWidth = window.innerWidth;
-window.addEventListener('resize', () => {
-  if (window.innerWidth !== lastWidth) {
-    lastWidth = window.innerWidth;
-    resizeCanvas();
-  }
-});
-
-function getPos(e) {
-  const r = canvas.getBoundingClientRect();
-  const s = e.touches ? e.touches[0] : e;
-  return [s.clientX - r.left, s.clientY - r.top];
-}
-canvas.addEventListener('mousedown',  e => { drawing=true; [lx,ly]=getPos(e); });
-canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; [lx,ly]=getPos(e); }, {passive:false});
-canvas.addEventListener('mousemove',  e => draw(e));
-canvas.addEventListener('touchmove',  e => { e.preventDefault(); draw(e); }, {passive:false});
-canvas.addEventListener('mouseup',    () => drawing=false);
-canvas.addEventListener('mouseleave', () => drawing=false);
-canvas.addEventListener('touchend',   () => drawing=false);
-
-function draw(e) {
-  if (!drawing) return;
-  const [x, y] = getPos(e);
-  ctx.beginPath();
-  ctx.moveTo(lx, ly);
-  ctx.lineTo(x, y);
-  ctx.strokeStyle = '#0F2A1E';
-  ctx.lineWidth = 2;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.stroke();
-  [lx, ly] = [x, y];
-  hasSig = true;
-  canvas.classList.add('signed');
-  document.getElementById('sigHint').textContent = 'Signature captured ✓';
-  document.getElementById('sigErr').style.display = 'none';
-}
-function clearSig() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  hasSig = false;
-  canvas.classList.remove('signed');
-  document.getElementById('sigHint').textContent = 'Draw your signature above';
-}
-
 // ── Set today's date ─────────────────────────────────────────────────────────
-document.getElementById('sigdate').value = new Date().toISOString().split('T')[0];
 
 // ── Validation ───────────────────────────────────────────────────────────────
 function validate(id, check) {
@@ -513,7 +414,6 @@ async function submitForm() {
   ok = validate('ecphone') && ok;
   ok = validate('fitness') && ok;
   ok = validate('conditions') && ok;
-  ok = validate('sigdate') && ok;
 
   const chksOk = document.getElementById('chk1').checked &&
                  document.getElementById('chk2').checked &&
@@ -521,8 +421,9 @@ async function submitForm() {
   document.getElementById('chkErr').style.display = chksOk ? 'none' : 'block';
   if (!chksOk) ok = false;
 
-  document.getElementById('sigErr').style.display = hasSig ? 'none' : 'block';
-  if (!hasSig) ok = false;
+  const finalOk = document.getElementById('chk5').checked;
+  document.getElementById('chk5Err').style.display = finalOk ? 'none' : 'block';
+  if (!finalOk) ok = false;
 
   if (!ok) {
     const first = document.querySelector('.invalid, [style*="block"]');
@@ -531,7 +432,6 @@ async function submitForm() {
   }
 
   // Build payload
-  const sigData = canvas.toDataURL('image/png');
   const payload = {
     firstname:              document.getElementById('firstname').value.trim(),
     lastname:               document.getElementById('lastname').value.trim(),
@@ -544,10 +444,10 @@ async function submitForm() {
     fitness_level:          document.getElementById('fitness').value,
     medical_aid:            document.getElementById('medical').value.trim(),
     medical_conditions:     document.getElementById('conditions').value.trim(),
-    hike_name:              document.getElementById('hikename').value.trim(),
-    signed_date:            document.getElementById('sigdate').value,
-    signature_image:        sigData,
+    hike_name:              document.getElementById('hikename') ? document.getElementById('hikename').value.trim() : '',
+    signed_date:            new Date().toLocaleDateString('en-ZA'),
     photo_consent:          document.getElementById('chk4').checked ? 'Yes' : 'No',
+    agreement_confirmed:    'Yes',
     _subject:               `Hike indemnity – ${document.getElementById('firstname').value.trim()} ${document.getElementById('lastname').value.trim()}`,
   };
 
@@ -588,11 +488,10 @@ function resetForm() {
   document.querySelectorAll('input[type=date]').forEach(el => el.value = '');
   document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
   document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+  document.getElementById('chk5Err').style.display = 'none';
   document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-  document.getElementById('sigdate').value = new Date().toISOString().split('T')[0];
-  document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').disabled = false;
   document.getElementById('submitBtn').innerHTML = 'Submit indemnity form →';
-  clearSig();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
