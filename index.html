@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hike Indemnity &amp; Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1D9E75; --green-dark: #0F6E56; --green-deeper: #085041;
+  --green-light: #E1F5EE; --green-mid: #5DCAA5;
+  --coral: #D85A30;
+  --text: #1a1a1a; --text-muted: #555; --text-hint: #999;
+  --bg: #f5f3ee; --surface: #ffffff;
+  --border: rgba(0,0,0,0.11); --border-strong: rgba(0,0,0,0.20);
+  --radius: 14px; --radius-sm: 8px;
+}
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; padding: 2rem 1rem 5rem;
+}
+.wrap { max-width: 660px; margin: 0 auto; }
+
+/* ── Header ── */
+.page-header { text-align: center; margin-bottom: 2.5rem; }
+.logo-circle {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 20px rgba(29,158,117,0.25);
+}
+.logo-circle svg { width: 34px; height: 34px; }
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 6px;
+}
+.page-header p { font-size: 14px; color: var(--text-muted); }
+
+/* ── Sections ── */
+.section {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem; margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;
+}
+.s-icon {
+  width: 32px; height: 32px; background: var(--green-light);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.s-icon svg { width: 17px; height: 17px; stroke: var(--green-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.step-badge {
+  margin-left: auto; font-family: 'Source Sans 3', sans-serif;
+  font-size: 11px; font-weight: 600;
+  background: var(--green-light); color: var(--green-deeper);
+  padding: 3px 10px; border-radius: 20px;
+}
+
+/* ── Grid ── */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.full { grid-column: 1 / -1; }
+@media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+
+/* ── Fields ── */
+.field { display: flex; flex-direction: column; gap: 5px; }
+.fl {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.fl .req { color: var(--coral); margin-left: 2px; }
+input, select, textarea {
+  font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: var(--text);
+  background: #fafaf8; border: 0.5px solid var(--border-strong);
+  border-radius: var(--radius-sm); padding: 10px 12px; width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s; outline: none; -webkit-appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,0.12); background: white;
+}
+textarea { resize: vertical; min-height: 72px; line-height: 1.6; }
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+}
+.err-msg { font-size: 12px; color: var(--coral); display: none; }
+.field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--coral); }
+.field.invalid .err-msg { display: block; }
+
+/* ── Terms ── */
+.terms-box {
+  font-size: 13px; color: var(--text-muted); line-height: 1.8;
+  background: var(--green-light); padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-sm); border-left: 3px solid var(--green);
+  margin-bottom: 1.25rem;
+}
+.terms-box strong { color: var(--green-deeper); }
+
+/* ── Checkboxes ── */
+.checks { display: flex; flex-direction: column; gap: 10px; }
+.check-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.check-row input[type=checkbox] {
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+  cursor: pointer; accent-color: var(--green); padding: 0;
+}
+.check-row span { font-size: 13px; line-height: 1.6; }
+.check-row .req { color: var(--coral); }
+#chkErr { font-size: 12px; color: var(--coral); display: none; margin-top: 6px; }
+
+/* ── Signature ── */
+#sigCanvas {
+  border: 1.5px dashed var(--border-strong); border-radius: var(--radius-sm);
+  background: white; cursor: crosshair; display: block;
+  touch-action: none; width: 100%; height: 160px;
+}
+#sigCanvas.signed { border-style: solid; border-color: var(--green); }
+.sig-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.sig-hint { font-size: 12px; color: var(--text-hint); flex: 1; }
+.btn-clear {
+  font-family: inherit; font-size: 12px; padding: 5px 12px;
+  border: 0.5px solid var(--border-strong); border-radius: var(--radius-sm);
+  background: white; color: var(--text-muted); cursor: pointer;
+}
+.btn-clear:hover { background: #f0f0ec; }
+#sigErr { font-size: 12px; color: var(--coral); display: none; margin-top: 6px; }
+
+/* ── Submit ── */
+.btn-submit {
+  width: 100%; padding: 16px;
+  font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600;
+  background: var(--green); color: white; border: none; border-radius: var(--radius);
+  cursor: pointer; transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.02em; margin-top: 0.5rem;
+}
+.btn-submit:hover { background: var(--green-dark); }
+.btn-submit:active { transform: scale(0.99); }
+.btn-submit:disabled { background: #bbb; cursor: not-allowed; }
+.spinner {
+  display: inline-block; width: 17px; height: 17px;
+  border: 2px solid rgba(255,255,255,0.35); border-top-color: white;
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+  vertical-align: -4px; margin-right: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#errBanner {
+  display: none; background: #fdecea; border: 0.5px solid #f5b0aa;
+  border-radius: var(--radius-sm); padding: 12px 16px;
+  font-size: 13px; color: #8b1a1a; margin-top: 12px;
+}
+
+/* ── Success ── */
+#successView {
+  display: none; background: var(--surface);
+  border: 0.5px solid var(--border); border-radius: var(--radius);
+  padding: 3rem 2rem; text-align: center;
+}
+.success-emoji { font-size: 52px; margin-bottom: 1rem; }
+#successView h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--green-deeper); margin-bottom: 0.5rem; }
+#successView p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+.btn-again {
+  margin-top: 1.5rem; padding: 10px 24px;
+  background: var(--green-light); color: var(--green-deeper);
+  border: none; border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.btn-again:hover { background: #c5e8d8; }
+
+.form-footer { text-align: center; margin-top: 2rem; font-size: 12px; color: var(--text-hint); }
+.form-footer a { color: var(--text-hint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="logo-circle">
+      <!-- Mountain icon -->
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 20L9 7l4 6 3-4 6 11H2z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
+        <circle cx="17" cy="5" r="2" fill="rgba(255,255,255,0.6)"/>
+      </svg>
+    </div>
+    <h1>Hike Indemnity &amp; Registration</h1>
+    <p>Complete all sections before participating in a hike event</p>
+  </div>
+
+  <!-- ═══════════════════════════════════ FORM VIEW ═══════════════════════════════════ -->
+  <div id="formView">
+
+    <!-- STEP 1 — Participant -->
+    <div class="section">
+      <div class="section-title">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        Participant details
+        <span class="step-badge">Step 1 of 5</span>
+      </div>
+      <div class="grid">
+        <div class="field" id="f-firstname">
+          <label class="fl" for="firstname">First name <span class="req">*</span></label>
+          <input type="text" id="firstname" name="firstname" placeholder="e.g. Sarah" autocomplete="given-name">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field" id="f-lastname">
+          <label class="fl" for="lastname">Last name <span class="req">*</span></label>
+          <input type="text" id="lastname" name="lastname" placeholder="e.g. Johnson" autocomplete="family-name">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field" id="f-dob">
+          <label class="fl" for="dob">Date of birth <span class="req">*</span></label>
+          <input type="date" id="dob" name="dob">
+          <span class="err-msg">Required</span>
+        </div>
+
+        <div class="field" id="f-email">
+          <label class="fl" for="email">Email address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email">
+          <span class="err-msg">Enter a valid email</span>
+        </div>
+        <div class="field" id="f-phone">
+          <label class="fl" for="phone">Cell number <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="e.g. 082 555 0100" autocomplete="tel">
+          <span class="err-msg">Required</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 — Emergency Contact -->
+    <div class="section">
+      <div class="section-title">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.8 19.8 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.9v2z"/></svg>
+        </div>
+        Emergency contact
+        <span class="step-badge">Step 2 of 5</span>
+      </div>
+      <div class="grid">
+        <div class="field" id="f-ecname">
+          <label class="fl" for="ecname">Full name <span class="req">*</span></label>
+          <input type="text" id="ecname" name="emergency_name" placeholder="Contact name">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field" id="f-ecrelation">
+          <label class="fl" for="ecrelation">Relationship <span class="req">*</span></label>
+          <select id="ecrelation" name="emergency_relationship">
+            <option value="">Select…</option>
+            <option>Spouse / partner</option>
+            <option>Parent</option>
+            <option>Sibling</option>
+            <option>Child</option>
+            <option>Friend</option>
+            <option>Other family</option>
+          </select>
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field" id="f-ecphone">
+          <label class="fl" for="ecphone">Contact number <span class="req">*</span></label>
+          <input type="tel" id="ecphone" name="emergency_phone" placeholder="e.g. 083 555 0200">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field">
+          <label class="fl" for="ecphone2">Alternate number</label>
+          <input type="tel" id="ecphone2" name="emergency_phone_alt" placeholder="Optional">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 — Health & Fitness -->
+    <div class="section">
+      <div class="section-title">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        Health &amp; fitness
+        <span class="step-badge">Step 3 of 5</span>
+      </div>
+      <div class="grid">
+        <div class="field" id="f-fitness">
+          <label class="fl" for="fitness">Fitness level <span class="req">*</span></label>
+          <select id="fitness" name="fitness_level">
+            <option value="">Select…</option>
+            <option>Beginner – light walks only</option>
+            <option>Moderate – regular walker</option>
+            <option>Fit – hike regularly</option>
+            <option>Very fit – trail running / mountaineering</option>
+          </select>
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field">
+          <label class="fl" for="medical">Medical aid / scheme</label>
+          <input type="text" id="medical" name="medical_aid" placeholder="e.g. Discovery, Momentum">
+        </div>
+        <div class="field full" id="f-conditions">
+          <label class="fl" for="conditions">Medical conditions / allergies <span class="req">*</span></label>
+          <textarea id="conditions" name="medical_conditions" placeholder="List any conditions, allergies, or medications relevant to physical activity. Write 'None' if not applicable."></textarea>
+          <span class="err-msg">Required — write "None" if not applicable</span>
+        </div>
+        <div class="field full">
+          <label class="fl" for="dietary">Dietary requirements</label>
+          <input type="text" id="dietary" name="dietary" placeholder="e.g. vegetarian, nut allergy — or leave blank">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 — Indemnity -->
+    <div class="section">
+      <div class="section-title">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        Indemnity declaration
+        <span class="step-badge">Step 4 of 5</span>
+      </div>
+      <div class="terms-box">
+        <strong>Please read carefully before signing:</strong><br><br>
+        I, the undersigned, acknowledge that hiking and outdoor activities involve inherent risks including but not limited to: rough terrain, extreme weather, wildlife encounters, physical exhaustion, and personal injury or death.<br><br>
+        I voluntarily participate in activities organised by this group and <strong>indemnify and hold harmless the organisers, leaders, and members</strong> from any liability, loss, damage, injury, or death arising from my participation, howsoever caused, except in cases of gross negligence.<br><br>
+        I confirm that I am in good health and physically capable of participating. I accept full responsibility for my own safety and agree to follow the instructions of the hike leader at all times. I understand the leader may turn any participant back for safety reasons without liability.<br><br>
+        I consent to first aid treatment and emergency medical care being administered if required, and accept all associated costs.<br><br>
+        <strong>This indemnity is valid for all hikes attended during the current calendar year.</strong>
+      </div>
+      <div class="checks">
+        <label class="check-row">
+          <input type="checkbox" id="chk1">
+          <span>I have read and understood the indemnity above and <strong>agree to its terms</strong> <span class="req">*</span></span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="chk2">
+          <span>I confirm that all information provided in this form is accurate and complete <span class="req">*</span></span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="chk3">
+          <span>I agree to conduct myself responsibly, respect the environment, and follow Leave No Trace principles <span class="req">*</span></span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="chk4">
+          <span>I consent to photographs / videos taken on hikes being shared in the group's social media</span>
+        </label>
+      </div>
+      <p id="chkErr">Please accept all required declarations above</p>
+    </div>
+
+    <!-- STEP 5 — Signature -->
+    <div class="section">
+      <div class="section-title">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 014 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        </div>
+        Signature
+        <span class="step-badge">Step 5 of 5</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">Sign in the box below using your mouse, finger, or stylus</p>
+      <canvas id="sigCanvas"></canvas>
+      <div class="sig-row">
+        <span class="sig-hint" id="sigHint">Draw your signature above</span>
+        <button class="btn-clear" type="button" onclick="clearSig()">✕ Clear</button>
+      </div>
+      <p id="sigErr">Signature is required</p>
+
+      <div class="grid" style="margin-top:1.25rem">
+        <div class="field" id="f-sigdate">
+          <label class="fl" for="sigdate">Date <span class="req">*</span></label>
+          <input type="date" id="sigdate" name="signed_date">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field">
+          <label class="fl" for="hikename">Hike / event name</label>
+          <input type="text" id="hikename" name="hike_name" placeholder="e.g. Magaliesberg day hike">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" type="button" onclick="submitForm()">
+      Submit indemnity form →
+    </button>
+    <div id="errBanner">Something went wrong. Please try again or contact the organiser.</div>
+
+  </div><!-- /formView -->
+
+  <!-- ═══════════════════════════════════ SUCCESS VIEW ═══════════════════════════════════ -->
+  <div id="successView">
+    <div class="success-emoji">🏔️</div>
+    <h2>You're all set!</h2>
+    <p id="successName" style="font-weight:600;color:var(--green-dark);font-size:16px;margin-bottom:8px"></p>
+    <p>Your indemnity has been submitted and the hike organiser has been notified.<br>See you on the trail!</p>
+    <button class="btn-again" onclick="resetForm()">Submit another participant</button>
+  </div>
+
+  <div class="form-footer">
+    Secured by <a href="https://formspree.io" target="_blank">Formspree</a> · Submissions stored privately
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Formspree endpoint ──────────────────────────────────────────────────────
+// REPLACE the value below with your own Formspree form ID after signing up at
+// https://formspree.io  (free plan = 50 submissions/month)
+// It will look like: https://formspree.io/f/xabcdefg
+const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+
+// ── Signature canvas ────────────────────────────────────────────────────────
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+let drawing = false, hasSig = false, lx = 0, ly = 0;
+
+function resizeCanvas() {
+  const w = canvas.parentElement.offsetWidth;
+  if (w > 0 && w !== canvas.width) {
+    canvas.width = w;
+    canvas.height = 160;
+  }
+}
+resizeCanvas();
+window.addEventListener('resize', () => { resizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; });
+
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const s = e.touches ? e.touches[0] : e;
+  return [s.clientX - r.left, s.clientY - r.top];
+}
+canvas.addEventListener('mousedown',  e => { drawing=true; [lx,ly]=getPos(e); });
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; [lx,ly]=getPos(e); }, {passive:false});
+canvas.addEventListener('mousemove',  e => draw(e));
+canvas.addEventListener('touchmove',  e => { e.preventDefault(); draw(e); }, {passive:false});
+canvas.addEventListener('mouseup',    () => drawing=false);
+canvas.addEventListener('mouseleave', () => drawing=false);
+canvas.addEventListener('touchend',   () => drawing=false);
+
+function draw(e) {
+  if (!drawing) return;
+  const [x, y] = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(lx, ly);
+  ctx.lineTo(x, y);
+  ctx.strokeStyle = '#0F2A1E';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+  [lx, ly] = [x, y];
+  hasSig = true;
+  canvas.classList.add('signed');
+  document.getElementById('sigHint').textContent = 'Signature captured ✓';
+  document.getElementById('sigErr').style.display = 'none';
+}
+function clearSig() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasSig = false;
+  canvas.classList.remove('signed');
+  document.getElementById('sigHint').textContent = 'Draw your signature above';
+}
+
+// ── Set today's date ─────────────────────────────────────────────────────────
+document.getElementById('sigdate').value = new Date().toISOString().split('T')[0];
+
+// ── Validation ───────────────────────────────────────────────────────────────
+function validate(id, check) {
+  const el = document.getElementById(id);
+  const wrap = document.getElementById('f-' + id);
+  const val = el ? el.value.trim() : '';
+  const ok = check ? check(val) : val.length > 0;
+  if (wrap) wrap.classList.toggle('invalid', !ok);
+  return ok;
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+async function submitForm() {
+  let ok = true;
+  ok = validate('firstname') && ok;
+  ok = validate('lastname') && ok;
+  ok = validate('dob') && ok;
+  ok = validate('email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) && ok;
+  ok = validate('phone') && ok;
+  ok = validate('ecname') && ok;
+  ok = validate('ecrelation') && ok;
+  ok = validate('ecphone') && ok;
+  ok = validate('fitness') && ok;
+  ok = validate('conditions') && ok;
+  ok = validate('sigdate') && ok;
+
+  const chksOk = document.getElementById('chk1').checked &&
+                 document.getElementById('chk2').checked &&
+                 document.getElementById('chk3').checked;
+  document.getElementById('chkErr').style.display = chksOk ? 'none' : 'block';
+  if (!chksOk) ok = false;
+
+  document.getElementById('sigErr').style.display = hasSig ? 'none' : 'block';
+  if (!hasSig) ok = false;
+
+  if (!ok) {
+    const first = document.querySelector('.invalid, [style*="block"]');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Build payload
+  const sigData = canvas.toDataURL('image/png');
+  const payload = {
+    firstname:              document.getElementById('firstname').value.trim(),
+    lastname:               document.getElementById('lastname').value.trim(),
+    dob:                    document.getElementById('dob').value,
+    email:                  document.getElementById('email').value.trim(),
+    phone:                  document.getElementById('phone').value.trim(),
+    emergency_name:         document.getElementById('ecname').value.trim(),
+    emergency_relationship: document.getElementById('ecrelation').value,
+    emergency_phone:        document.getElementById('ecphone').value.trim(),
+    emergency_phone_alt:    document.getElementById('ecphone2').value.trim(),
+    fitness_level:          document.getElementById('fitness').value,
+    medical_aid:            document.getElementById('medical').value.trim(),
+    medical_conditions:     document.getElementById('conditions').value.trim(),
+    dietary:                document.getElementById('dietary').value.trim(),
+    hike_name:              document.getElementById('hikename').value.trim(),
+    signed_date:            document.getElementById('sigdate').value,
+    signature_image:        sigData,
+    photo_consent:          document.getElementById('chk4').checked ? 'Yes' : 'No',
+    _subject:               `Hike indemnity – ${document.getElementById('firstname').value.trim()} ${document.getElementById('lastname').value.trim()}`,
+  };
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Submitting…';
+  document.getElementById('errBanner').style.display = 'none';
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      document.getElementById('formView').style.display = 'none';
+      const s = document.getElementById('successView');
+      s.style.display = 'block';
+      document.getElementById('successName').textContent =
+        payload.firstname + ' ' + payload.lastname;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error('Server error');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.innerHTML = 'Submit indemnity form →';
+    document.getElementById('errBanner').style.display = 'block';
+  }
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────────
+function resetForm() {
+  document.getElementById('formView').style.display = 'block';
+  document.getElementById('successView').style.display = 'none';
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea')
+    .forEach(el => el.value = '');
+  document.querySelectorAll('input[type=date]').forEach(el => el.value = '');
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+  document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+  document.getElementById('sigdate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').innerHTML = 'Submit indemnity form →';
+  clearSig();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
