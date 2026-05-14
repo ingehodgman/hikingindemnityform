@@ -378,21 +378,18 @@ select {
   </div>
 
   <div class="form-footer">
-    Secured by <a href="https://formspree.io" target="_blank">Formspree</a> · Submissions stored privately
+    Going Places Hiking · Submissions via WhatsApp
   </div>
 
 </div><!-- /wrap -->
 
 <script>
-// ── Formspree endpoint ──────────────────────────────────────────────────────
-// REPLACE the value below with your own Formspree form ID after signing up at
-// https://formspree.io  (free plan = 50 submissions/month)
-// It will look like: https://formspree.io/f/xabcdefg
-const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+// ── YOUR WHATSAPP NUMBER ──────────────────────────────────────────
+// International format, no spaces or + sign
+// e.g. South African number 082 555 0100 becomes 27825550100
+const WHATSAPP_NUMBER = 'YOUR_NUMBER_HERE'; // e.g. '27821234567'
 
-// ── Set today's date ─────────────────────────────────────────────────────────
-
-// ── Validation ───────────────────────────────────────────────────────────────
+// ── Validation ────────────────────────────────────────────────────
 function validate(id, check) {
   const el = document.getElementById(id);
   const wrap = document.getElementById('f-' + id);
@@ -402,8 +399,8 @@ function validate(id, check) {
   return ok;
 }
 
-// ── Submit ────────────────────────────────────────────────────────────────────
-async function submitForm() {
+// ── Submit ────────────────────────────────────────────────────────
+function submitForm() {
   let ok = true;
   ok = validate('firstname') && ok;
   ok = validate('lastname') && ok;
@@ -431,66 +428,69 @@ async function submitForm() {
     return;
   }
 
-  // Build payload
-  const payload = {
-    firstname:              document.getElementById('firstname').value.trim(),
-    lastname:               document.getElementById('lastname').value.trim(),
-    email:                  document.getElementById('email').value.trim(),
-    phone:                  document.getElementById('phone').value.trim(),
-    emergency_name:         document.getElementById('ecname').value.trim(),
-    emergency_relationship: document.getElementById('ecrelation').value,
-    emergency_phone:        document.getElementById('ecphone').value.trim(),
-    emergency_phone_alt:    document.getElementById('ecphone2').value.trim(),
-    fitness_level:          document.getElementById('fitness').value,
-    medical_aid:            document.getElementById('medical').value.trim(),
-    medical_conditions:     document.getElementById('conditions').value.trim(),
-    hike_name:              document.getElementById('hikename') ? document.getElementById('hikename').value.trim() : '',
-    signed_date:            new Date().toLocaleDateString('en-ZA'),
-    photo_consent:          document.getElementById('chk4').checked ? 'Yes' : 'No',
-    agreement_confirmed:    'Yes',
-    _subject:               `Hike indemnity – ${document.getElementById('firstname').value.trim()} ${document.getElementById('lastname').value.trim()}`,
-  };
+  const fn    = document.getElementById('firstname').value.trim();
+  const ln    = document.getElementById('lastname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const ecname= document.getElementById('ecname').value.trim();
+  const ecrel = document.getElementById('ecrelation').value;
+  const ecph  = document.getElementById('ecphone').value.trim();
+  const ecph2 = document.getElementById('ecphone2').value.trim();
+  const fit   = document.getElementById('fitness').value;
+  const aid   = document.getElementById('medical').value.trim();
+  const cond  = document.getElementById('conditions').value.trim();
+  const hike  = document.getElementById('hikename') ? document.getElementById('hikename').value.trim() : '';
+  const photo = document.getElementById('chk4').checked ? 'Yes' : 'No';
+  const date  = new Date().toLocaleDateString('en-ZA');
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Submitting…';
-  document.getElementById('errBanner').style.display = 'none';
+  const altPhone = ecph2 ? '*Alt:* ' + ecph2 + '\n' : '';
+  const msg = [
+    '*HIKE INDEMNITY SUBMISSION*',
+    '',
+    '*PARTICIPANT*',
+    '*Name:* ' + fn + ' ' + ln,
+    '*Email:* ' + email,
+    '*Cell:* ' + phone,
+    '',
+    '*EMERGENCY CONTACT*',
+    '*Name:* ' + ecname + ' (' + ecrel + ')',
+    '*Cell:* ' + ecph,
+    altPhone,
+    '*HEALTH & FITNESS*',
+    '*Fitness:* ' + fit,
+    '*Medical aid:* ' + (aid || 'None'),
+    '*Conditions:* ' + cond,
+    '',
+    '*DETAILS*',
+    '*Hike:* ' + (hike || 'Not specified'),
+    '*Photo consent:* ' + photo,
+    '*Date:* ' + date,
+    '',
+    'Agreed to indemnity: YES'
+  ].join('\n');
 
-  try {
-    const res = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (res.ok) {
-      document.getElementById('formView').style.display = 'none';
-      const s = document.getElementById('successView');
-      s.style.display = 'block';
-      document.getElementById('successName').textContent =
-        payload.firstname + ' ' + payload.lastname;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      throw new Error('Server error');
-    }
-  } catch {
-    btn.disabled = false;
-    btn.innerHTML = 'Submit indemnity form →';
-    document.getElementById('errBanner').style.display = 'block';
-  }
+  const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('successView').style.display = 'block';
+  document.getElementById('successName').textContent = fn + ' ' + ln;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Open WhatsApp
+  window.open(url, '_blank');
 }
 
-// ── Reset ─────────────────────────────────────────────────────────────────────
+// ── Reset ─────────────────────────────────────────────────────────
 function resetForm() {
   document.getElementById('formView').style.display = 'block';
   document.getElementById('successView').style.display = 'none';
   document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea')
     .forEach(el => el.value = '');
-  document.querySelectorAll('input[type=date]').forEach(el => el.value = '');
   document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
   document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
   document.getElementById('chk5Err').style.display = 'none';
   document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-    document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').disabled = false;
   document.getElementById('submitBtn').innerHTML = 'Submit indemnity form →';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
