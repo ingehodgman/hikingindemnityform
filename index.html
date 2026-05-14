@@ -374,11 +374,11 @@ select {
     <h2>Almost done!</h2>
     <p id="successName" style="font-weight:600;color:var(--green-dark);font-size:16px;margin-bottom:8px"></p>
     <p style="margin-bottom:1.5rem;font-size:14px;color:var(--text-muted)">Your form is ready. Tap the button below to open WhatsApp, then press <strong>Send</strong> to complete your submission.</p>
-    <a id="waBtn" href="#"
+    <a id="waBtn" href="#" target="_blank" rel="noopener"
        style="display:block;background:#25D366;color:white;text-decoration:none;
               padding:18px 24px;border-radius:14px;font-size:17px;font-weight:700;
               text-align:center;margin-bottom:1rem;">
-      Send via WhatsApp
+      &#128172; Send via WhatsApp
     </a>
     <button class="btn-again" onclick="resetForm()">Submit another participant</button>
   </div>
@@ -475,7 +475,7 @@ function submitForm() {
     'Agreed to indemnity: YES'
   ].join('\n');
 
-  const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+  const url = 'https://api.whatsapp.com/send?phone=' + WHATSAPP_NUMBER + '&text=' + encodeURIComponent(msg);
 
   document.getElementById('formView').style.display = 'none';
   document.getElementById('successView').style.display = 'block';
