@@ -429,12 +429,20 @@ let drawing = false, hasSig = false, lx = 0, ly = 0;
 function resizeCanvas() {
   const w = canvas.parentElement.offsetWidth;
   if (w > 0 && w !== canvas.width) {
+    const snapshot = hasSig ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
+    const prevW = canvas.width, prevH = canvas.height;
     canvas.width = w;
     canvas.height = 160;
+    if (snapshot) {
+      const tmp = document.createElement('canvas');
+      tmp.width = prevW; tmp.height = prevH;
+      tmp.getContext('2d').putImageData(snapshot, 0, 0);
+      ctx.drawImage(tmp, 0, 0, prevW, prevH, 0, 0, w, 160);
+    }
   }
 }
 resizeCanvas();
-window.addEventListener('resize', () => { resizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; });
+window.addEventListener('resize', resizeCanvas);
 
 function getPos(e) {
   const r = canvas.getBoundingClientRect();
