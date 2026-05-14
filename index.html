@@ -175,6 +175,33 @@ select {
 
 .form-footer { text-align: center; margin-top: 2rem; font-size: 12px; color: var(--text-hint); }
 .form-footer a { color: var(--text-hint); }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  body { padding: 1rem 0.75rem 5rem; }
+  .page-header { margin-bottom: 1.5rem; }
+  .page-header h1 { font-size: 22px; }
+  .logo-circle { width: 56px; height: 56px; }
+  .logo-circle svg { width: 28px; height: 28px; }
+  .section { padding: 1.1rem 1rem; margin-bottom: 0.75rem; }
+  .section-title { font-size: 15px; margin-bottom: 1rem; }
+  .step-badge { font-size: 10px; padding: 2px 8px; }
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  input:not([type=checkbox]), select, textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+    padding: 13px 12px;
+  }
+  .fl { font-size: 12px; }
+  .check-row { gap: 12px; padding: 4px 0; }
+  .check-row input[type=checkbox] { width: 22px; height: 22px; margin-top: 0; flex-shrink: 0; }
+  .check-row span { font-size: 14px; }
+  .terms-box { font-size: 13px; padding: 1rem; }
+  #sigCanvas { height: 180px; }
+  .btn-submit { font-size: 17px; padding: 18px; border-radius: 12px; }
+  .sig-hint { font-size: 13px; }
+  .btn-clear { font-size: 13px; padding: 8px 14px; }
+  #successView { padding: 2rem 1.25rem; }
+}
 </style>
 </head>
 <body>
