@@ -476,8 +476,8 @@ function submitForm() {
   document.getElementById('successName').textContent = fn + ' ' + ln;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Open WhatsApp
-  window.open(url, '_blank');
+  // Short delay so success screen is visible, then hand off to WhatsApp
+  setTimeout(function() { window.location.href = url; }, 800);
 }
 
 // ── Reset ─────────────────────────────────────────────────────────
